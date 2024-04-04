@@ -1,0 +1,29 @@
+digraph OPERATOR {
+    start [label=OPERATOR shape=plaintext]
+    flow_structure [label=FLOW_STRUCTURE shape=box]
+    alg_unit_return [label=ALG_UNIT_RETURN shape=box]
+    assignment [label=ASSIGNMENT shape=box]
+    call [label=CALL shape=box]
+    definition [label=DEFINITION shape=box]
+    statement [label=STATEMENT shape=box]
+    transition [label=TRANSITION shape=box]
+    comment [label=COMMENT shape=box]
+    end [label="" shape=point]
+
+    start -> flow_structure
+    start -> assignment
+    start -> call
+    start -> definition
+    start -> statement
+    start -> transition
+    start -> comment
+    start -> alg_unit_return
+    alg_unit_return -> end
+    flow_structure -> end
+    assignment -> end
+    call -> end
+    definition -> end
+    statement -> end
+    transition -> end
+    comment -> end
+}

@@ -1,0 +1,29 @@
+digraph ALG_UNIT {
+    start [label=ALG_UNIT shape=plaintext]
+    proc [label=proc shape=oval]
+    func [label=func shape=oval]
+    iter [label=iter shape=oval]
+    br_open [label="(" shape=oval]
+    br_close [label=")" shape=oval]
+    name [label=NAME shape=box]
+    comma_1 [label="," shape=oval]
+    comma_2 [label="," shape=oval]
+    input [label=INPUT shape=box]
+    operator [label=OPERATOR shape=box]
+    end [label="" shape=point]
+
+    start -> func
+    start -> proc
+    start -> iter
+    func -> br_open
+    proc -> br_open
+    iter -> br_open
+    br_open -> name
+    name -> comma_1
+    comma_1 -> input
+    input -> comma_2
+    comma_2 -> operator
+    operator -> comma_2
+    operator -> br_close
+    br_close -> end
+}

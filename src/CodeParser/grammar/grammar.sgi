@@ -1,0 +1,41 @@
+TERMINALS:
+    word ::= 'word';
+    char_sequence = 'char_sequence'.
+
+KEYS:
+    'assign'; 'next for'; 'exit for'; 'goto'; 'define'; 'comment';
+    'integer'; 'string'; 'char'; 'array'; 'struct';
+    'if'; 'for'; 'while'; 'repeat;
+    ','; '('; ')'.
+
+NONTERMINALS:
+    DEFINITION;
+    INPUT;
+    ASSIGNMENT;
+    ALG_UNIT;
+    WHILE;
+    CALL;
+    FLOW_STRUCTURE;
+    FRAGMENT;
+    REPEAT;
+    RETURN;
+    CODE_BLOCK;
+    OUTPUT;
+    BRANCHING;
+    FOR;
+    YIELD;
+    NAME;
+    COMMENT;
+    TYPE_ARRAY;
+    S;
+    ALG;
+    CYCLE;
+    ALG_UNIT_RETURN;
+    OPERATOR;
+    TYPE;
+    TYPE_STRUCT;
+    TRANSITION;
+    PARAM_LIST;
+    STATEMENT.
+
+AXIOM: 
