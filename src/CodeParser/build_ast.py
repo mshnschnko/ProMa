@@ -33,7 +33,7 @@ def __RenderTokenStream(diagramName, tokenList, debugInfoDir):
     h.render(directory=debugInfoDir, view=True)
 
 
-def __RenderAst(diagramName, ast, debugInfoDir):
+def __RenderAst(diagramName, ast: TreeNode, debugInfoDir):
     if debugInfoDir is None:
         return
     h = graphviz.Digraph(diagramName, format='svg')
@@ -50,9 +50,11 @@ def __RenderAst(diagramName, ast, debugInfoDir):
             nodes += [(child, i) for child in node[0].childs]
         else:
             token = node[0].token
+            print(type(token))
             if Token.Type.TERMINAL == token.type:
+                print(type(token.terminalType))
                 h.node(str(i),
-                       f"TERMINAL\ntype: {token.terminalType.word}\nstring: {token.str}" + (f"\nattribute: {token.attribute}" if token.attribute else ""),
+                       f"TERMINAL\ntype: {token.terminalType}\nstring: {token.str}" + (f"\nattribute: {token.attribute}" if token.attribute else ""),
                        shape='diamond')
             elif Token.Type.KEY == token.type:
                 h.node(str(i), f"KEY\nstring: {token.str}" + (f"\nattribute: {token.attribute}" if token.attribute else ""), shape='oval')
@@ -99,6 +101,7 @@ with open(args.codeFile, 'r') as codeFile:
     code = codeFile.read()
 
 tokenList = Tokenize(code)
+print('list = ', tokenList[0].terminalType)
 #__RenderTokenStream('token_stream_after_scanner', tokenList, debugInfoDir)
 tokenList = Afterscan(tokenList)
 #__RenderTokenStream('token_stream_after_afterscan', tokenList, debugInfoDir)
