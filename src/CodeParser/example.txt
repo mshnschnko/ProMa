@@ -1,1 +1,1 @@
-@@{a = 5}
+define(a,array(@@{[1..n]}, struct(k:integer,l:@@{\in})))

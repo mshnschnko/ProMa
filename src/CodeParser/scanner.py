@@ -14,14 +14,16 @@ def __SkipSpaces(code, pos):
 def __GetCurrentToken(code, pos):
     for terminal, regex in tokenRegularExpressions:
         result = re.match(regex, code[pos:])
-        print(terminal, regex, code[pos:], sep="=========")
         if not result:
             continue
+        print('TERMINAL = ', code[pos:])
         token = Token(Token.Type.TERMINAL)
         token.terminalType = terminal
-        print('type = ', token.terminalType)
-        token.str = result.group(0)
-        print('token str', token.str)
+        if token.terminalType == terminal.other:
+            token.str = result.group(2)
+            return token, pos + len(token.str) + 4
+        else:
+            token.str = result.group(0)
         return token, pos + len(token.str)
     raise SyntaxError("Failed to recognize token")
 

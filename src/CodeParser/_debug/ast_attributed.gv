@@ -11,21 +11,133 @@ type: Nonterminal.CODE_BLOCK" shape=box]
 type: Nonterminal.OPERATOR" shape=box]
 	3 -> 4
 	5 [label="NONTERMINAL
-type: Nonterminal.STATEMENT" shape=box]
+type: Nonterminal.DEFINITION" shape=box]
 	4 -> 5
-	6 [label="TERMINAL
+	6 [label="KEY
+string: define
+attribute: NodeParams(text='define', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	5 -> 6
+	7 [label="KEY
+string: (
+attribute: NodeParams(text='(', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	5 -> 7
+	8 [label="NONTERMINAL
+type: Nonterminal.NAME" shape=box]
+	5 -> 8
+	9 [label="KEY
+string: ,
+attribute: NodeParams(text=',', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	5 -> 9
+	10 [label="NONTERMINAL
+type: Nonterminal.TYPE" shape=box]
+	5 -> 10
+	11 [label="KEY
+string: )
+attribute: NodeParams(text=')', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	5 -> 11
+	12 [label="NONTERMINAL
+type: Nonterminal.STATEMENT" shape=box]
+	8 -> 12
+	13 [label="NONTERMINAL
+type: Nonterminal.TYPE_ARRAY" shape=box]
+	10 -> 13
+	14 [label="TERMINAL
 type: Terminal.word
 string: a
 attribute: NodeParams(text='a', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
-	5 -> 6
-	7 [label="TERMINAL
+	12 -> 14
+	15 [label="KEY
+string: array
+attribute: NodeParams(text='array', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	13 -> 15
+	16 [label="KEY
+string: (
+attribute: NodeParams(text='(', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	13 -> 16
+	17 [label="NONTERMINAL
+type: Nonterminal.STATEMENT" shape=box]
+	13 -> 17
+	18 [label="KEY
+string: ,
+attribute: NodeParams(text=',', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	13 -> 18
+	19 [label="NONTERMINAL
+type: Nonterminal.TYPE" shape=box]
+	13 -> 19
+	20 [label="KEY
+string: )
+attribute: NodeParams(text=')', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	13 -> 20
+	21 [label="TERMINAL
+type: Terminal.other
+string: [1..n]
+attribute: NodeParams(text='[1..n]', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
+	17 -> 21
+	22 [label="NONTERMINAL
+type: Nonterminal.TYPE_STRUCT" shape=box]
+	19 -> 22
+	23 [label="KEY
+string: struct
+attribute: NodeParams(text='struct', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 23
+	24 [label="KEY
+string: (
+attribute: NodeParams(text='(', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 24
+	25 [label="NONTERMINAL
+type: Nonterminal.NAME" shape=box]
+	22 -> 25
+	26 [label="KEY
+string: :
+attribute: NodeParams(text=':', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 26
+	27 [label="NONTERMINAL
+type: Nonterminal.TYPE" shape=box]
+	22 -> 27
+	28 [label="KEY
+string: ,
+attribute: NodeParams(text=',', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 28
+	29 [label="NONTERMINAL
+type: Nonterminal.NAME" shape=box]
+	22 -> 29
+	30 [label="KEY
+string: :
+attribute: NodeParams(text=':', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 30
+	31 [label="NONTERMINAL
+type: Nonterminal.TYPE" shape=box]
+	22 -> 31
+	32 [label="KEY
+string: )
+attribute: NodeParams(text=')', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	22 -> 32
+	33 [label="NONTERMINAL
+type: Nonterminal.STATEMENT" shape=box]
+	25 -> 33
+	34 [label="KEY
+string: integer
+attribute: NodeParams(text='integer', rows=None, head=None, tail=None, is_key=True)" shape=oval]
+	27 -> 34
+	35 [label="NONTERMINAL
+type: Nonterminal.STATEMENT" shape=box]
+	29 -> 35
+	36 [label="NONTERMINAL
+type: Nonterminal.STATEMENT" shape=box]
+	31 -> 36
+	37 [label="TERMINAL
 type: Terminal.word
-string: =
-attribute: NodeParams(text='=', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
-	5 -> 7
-	8 [label="TERMINAL
+string: k
+attribute: NodeParams(text='k', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
+	33 -> 37
+	38 [label="TERMINAL
 type: Terminal.word
-string: 5
-attribute: NodeParams(text='5', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
-	5 -> 8
+string: l
+attribute: NodeParams(text='l', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
+	35 -> 38
+	39 [label="TERMINAL
+type: Terminal.other
+string: \in
+attribute: NodeParams(text='\\in', rows=None, head=None, tail=None, is_key=False)" shape=diamond]
+	36 -> 39
 }

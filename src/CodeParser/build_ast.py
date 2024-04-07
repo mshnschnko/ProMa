@@ -50,9 +50,7 @@ def __RenderAst(diagramName, ast: TreeNode, debugInfoDir):
             nodes += [(child, i) for child in node[0].childs]
         else:
             token = node[0].token
-            print(type(token))
             if Token.Type.TERMINAL == token.type:
-                print(type(token.terminalType))
                 h.node(str(i),
                        f"TERMINAL\ntype: {token.terminalType}\nstring: {token.str}" + (f"\nattribute: {token.attribute}" if token.attribute else ""),
                        shape='diamond')
@@ -79,41 +77,42 @@ def __GetRCode(node):
             res = res + ("\n" if len(res) != 0 else "") + node.commands[i + 1].replace(key, repr(node.childs[i].attribute))
     return res
 
+def parse_code(json_file: str, code_file: str):
+    with open(json_file, 'r') as jsonFile:
+        jsonData = json.loads(jsonFile.read())
 
-parser = ArgumentParser(prog="create_ast", description="Create AST")
-parser.add_argument("-c", "--code", dest="codeFile", help="File with code", metavar="FILE", required=True)
-parser.add_argument("-j", "--json", dest="jsonFile", help="Json file with settings", metavar="FILE", required=True)
-args = parser.parse_args()
+    syntaxInfo = GetSyntaxDesription(jsonData["syntax"])
 
-with open(args.jsonFile, 'r') as jsonFile:
-    jsonData = json.loads(jsonFile.read())
+    if "debugInfoDir" in jsonData:
+        debugInfoDir = pathlib.Path(jsonData["debugInfoDir"])
+        if not debugInfoDir.exists():
+            os.mkdir(debugInfoDir)
+    else:
+        debugInfoDir = None
 
-syntaxInfo = GetSyntaxDesription(jsonData["syntax"])
+    with open(code_file, 'r') as codeFile:
+        code = codeFile.read()
 
-if "debugInfoDir" in jsonData:
-    debugInfoDir = pathlib.Path(jsonData["debugInfoDir"])
-    if not debugInfoDir.exists():
-        os.mkdir(debugInfoDir)
-else:
-    debugInfoDir = None
+    tokenList = Tokenize(code)
+    print('list = ', tokenList[0].terminalType)
+    #__RenderTokenStream('token_stream_after_scanner', tokenList, debugInfoDir)
+    tokenList = Afterscan(tokenList)
+    #__RenderTokenStream('token_stream_after_afterscan', tokenList, debugInfoDir)
 
-with open(args.codeFile, 'r') as codeFile:
-    code = codeFile.read()
+    ast = BuildAst(syntaxInfo, dsl_info.axiom, tokenList)
 
-tokenList = Tokenize(code)
-print('list = ', tokenList[0].terminalType)
-#__RenderTokenStream('token_stream_after_scanner', tokenList, debugInfoDir)
-tokenList = Afterscan(tokenList)
-#__RenderTokenStream('token_stream_after_afterscan', tokenList, debugInfoDir)
+    # return ast
+    #__RenderAst('ast', ast, debugInfoDir)
+    # attributor.SetAttributes(ast, attribute_evaluator.attributesMap)
+    __RenderAst('ast_attributed', ast, debugInfoDir)
+    # print('\n'.join(ast.attribute.rows))
 
-ast = BuildAst(syntaxInfo, dsl_info.axiom, tokenList)
-#__RenderAst('ast', ast, debugInfoDir)
-# attributor.SetAttributes(ast, attribute_evaluator.attributesMap)
-__RenderAst('ast_attributed', ast, debugInfoDir)
-# print('\n'.join(ast.attribute.rows))
+    return ast
 
+    if debugInfoDir is not None and "semantics" in jsonData and "virt" == jsonData["semantics"]["type"]:
+        rCode = __GetRCode(ast)
+        with open(f"{debugInfoDir}/r_code.py", 'w') as codeFile:
+            codeFile.write(rCode)
 
-if debugInfoDir is not None and "semantics" in jsonData and "virt" == jsonData["semantics"]["type"]:
-    rCode = __GetRCode(ast)
-    with open(f"{debugInfoDir}/r_code.py", 'w') as codeFile:
-        codeFile.write(rCode)
+if __name__ == '__main__':
+    parse_code()

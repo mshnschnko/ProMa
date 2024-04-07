@@ -6,7 +6,6 @@ digraph STATEMENT{
 
     start -> word
     start -> other
-    other -> other
     other -> end
     word -> word
     word -> end

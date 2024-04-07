@@ -5,6 +5,7 @@ digraph TYPE{
     int [label=integer shape=oval]
     str [label=string shape=oval]
     char [label=char shape=oval]
+    statement [label=STATEMENT shape=box]
     end [label="" shape=point]
 
     start -> array
@@ -12,10 +13,12 @@ digraph TYPE{
     start -> int
     start -> str
     start -> char
+    start -> statement
 
     array -> end
     struct -> end
     int -> end
     str -> end
     char -> end
+    statement -> end
 }

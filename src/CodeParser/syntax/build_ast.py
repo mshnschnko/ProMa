@@ -11,9 +11,13 @@ class TreeNode:
     def __init__(self, type):
         self.type = type
         self.attribute = None
+        self.nonterminalType = None
+        self.childs: list[TreeNode] = []
+        self.commands = []
+        self.token: Token = None
 
 
-def __BuildAstElement(grammarDescription, nonterminal, tokenList, start, end):
+def __BuildAstElement(grammarDescription, nonterminal, tokenList: list[Token], start, end):
     if nonterminal not in grammarDescription:
         raise Exception(f"Failed to find '{nonterminal}' description")
     result = TreeNode(TreeNode.Type.NONTERMINAL)

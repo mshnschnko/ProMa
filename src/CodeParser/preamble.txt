@@ -1,0 +1,74 @@
+\documentclass[a4paper,14pt]{article}
+\parskip=6pt plus 8pt
+\linespread{1.15}
+\usepackage{indentfirst}
+\setlength\parindent{24pt}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+\geometry{left=2cm}
+\geometry{right=2cm}
+\usepackage{graphicx}
+\usepackage{multirow, multicol}
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{float}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue,
+}
+
+\let\epsilon\varepsilon
+\let\phi\varphi
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+\newcommand{\RR}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{R}}{\mathbb{R}^{#1}}}}
+\newcommand{\NN}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{N}}{\mathbb{N}^{#1}}}}
+\newcommand{\ZZ}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{Z}}{\mathbb{Z}^{#1}}}}
+\newcommand{\QQ}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{Q}}{\mathbb{Q}^{#1}}}}
+\newcommand{\CC}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{C}}{\mathbb{C}^{#1}}}}
+\newcommand{\PP}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{P}}{\mathbb{P}^{#1}}}}
+\newcommand{\HH}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{H}}{\mathbb{H}^{#1}}}}
+\newcommand{\II}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{I}}{\mathbb{I}^{#1}}}}
+\numberwithin{equation}{section}
+
+% Move limits on sums, integrals and limits
+\usepackage{etoolbox}
+\apptocmd{\lim}{\limits}{}{}
+\apptocmd{\max}{\limits}{}{}
+\apptocmd{\min}{\limits}{}{}
+\apptocmd{\sup}{\limits}{}{}
+\apptocmd{\inf}{\limits}{}{}
+\apptocmd{\sum}{\limits}{}{}
+\apptocmd{\prod}{\limits}{}{}
+\apptocmd{\int}{\limits}{}{}
+\apptocmd{\iint}{\limits}{}{}
+\apptocmd{\iiint}{\limits}{}{}
+\apptocmd{\bigcap}{\limits}{}{}
+\apptocmd{\bigcup}{\limits}{}{}
+
+% Let symbol
+\def\Let{%
+  \mathord{\setbox0=\hbox{$\exists$}%
+    \hbox{\kern 0.125\wd0%
+      \vbox to \ht0{%
+        \hrule width 0.75\wd0%
+        \vfill%
+        \hrule width 0.75\wd0}%
+      \vrule height \ht0%
+      \kern 0.125\wd0}%
+  }%
+}

@@ -9,8 +9,8 @@ class Terminal(Enum):
 
 tokenRegularExpressions = [
     (Terminal.word, r'[\[\]a-zA-Z0-9_+*/\-=\.]+'),
-    (Terminal.char_sequence, r"[\(\),]"),
-    (Terminal.other, r"@@{.*}"),
+    (Terminal.char_sequence, r"[\(\),:]"),
+    (Terminal.other, r"(?:(@@\{))[ \t]*(.*?)[ \t]*(?(2)\})"),
 ]
 
 
@@ -40,6 +40,7 @@ keys = [
     (",", Terminal.char_sequence),
     ("(", Terminal.char_sequence),
     (")", Terminal.char_sequence),
+    (":", Terminal.char_sequence),
 ]
 
 
@@ -60,14 +61,15 @@ class Nonterminal(Enum):
     FOR = 'FOR'
     YIELD = 'YIELD'
     NAME = 'NAME'
+    UNIT_NAME = 'UNIT_NAME'
     COMMENT = 'COMMENT'
-    TYPE_ARRAY = 'TYPE_ARRAY'
     S = 'S'
     ALG = 'ALG'
     CYCLE = 'CYCLE'
     ALG_UNIT_RETURN = 'ALG_UNIT_RETURN'
     OPERATOR = 'OPERATOR'
     TYPE = 'TYPE'
+    TYPE_ARRAY = 'TYPE_ARRAY'
     TYPE_STRUCT = 'TYPE_STRUCT'
     TRANSITION = 'TRANSITION'
     PARAM_LIST = 'PARAM_LIST'

@@ -7,15 +7,16 @@ digraph TYPE_STRUCT{
     statement [label=STATEMENT shape=box]
     close [label=")" shape=oval]
     comma [label="," shape=oval]
+    colon [label=":" shape=oval]
     end [label="" shape=point]
 
     start -> struct
     struct -> open
     open -> name
-    name -> comma
-    comma -> type
-    comma -> statement
+    name -> colon
+    colon -> type
+    type -> comma
+    comma -> name
     type -> close
-    statement -> close
     close -> end
 }
