@@ -16,8 +16,11 @@ class LatexCreator:
             latex_file.write(preamble)
             latex_file.write('\n\\begin{document}\n')
 
+        self.lines = []
+
     def create_end(self):
         with open(self.dest_path, 'a+', encoding='utf8') as latex_file:
+            latex_file.writelines(self.lines)
             latex_file.write('\n\\end{document}')
 
     def process_node(self, node: TreeNode, latex_file) -> None:
@@ -132,3 +135,55 @@ class LatexCreator:
 # TODO:
 # Создавать список детей перед циклом с рекурсивным вызовом
 # передавать этот список вместо поля класса, поле класса убрать
+
+    # def prepair_tree(self, ast: TreeNode) -> TreeNode:
+
+    # def process_item(self, node: TreeNode)
+
+    def dfs(self, ast: TreeNode) -> None:
+        if ast:
+            if ast.type == TreeNode.Type.NONTERMINAL:
+                if ast.nonterminalType == Nonterminal.NAME:
+                    self.dfs(ast.childs[0].childs[0])
+                    self.lines.append(' $:$ ')
+                    return
+                if ast.nonterminalType == Nonterminal.PARAM_LIST:
+                    self.lines.append(' (')
+                    for child in [chi for chi in ast.childs[:-1] if chi.type == TreeNode.Type.NONTERMINAL]:
+                        self.dfs(child)
+                        self.lines.append(', ')
+                    self.dfs(ast.childs[-1])
+                    self.lines.append(') ')
+                    return
+                if ast.nonterminalType == Nonterminal.ASSIGNMENT:
+                    self.dfs(ast.childs[2].childs[0])
+                    self.lines.append(' $:=$ ')
+                    self.dfs(ast.childs[4].childs[0])
+                    return
+                if ast.nonterminalType == Nonterminal.DEFINITION:
+                    self.dfs(ast.childs[2].childs[0])
+                    self.lines.append(' $:$ ')
+                    self.dfs(ast.childs[4].childs[0])
+                    return
+                if ast.nonterminalType == Nonterminal.TYPE_ARRAY:
+                    self.dfs(ast.childs[0])
+                    self.dfs(ast.childs[2])
+                    self.lines.append(' \\textbf{of} ')
+                    self.dfs(ast.childs[4].childs[0])
+                    return
+                if ast.nonterminalType == Nonterminal.TYPE_STRUCT:
+                    self.dfs(ast.childs[0])
+                    self.lines.append(' \{')
+                    for child in ast.childs[1:]:
+                        self.dfs(child)
+                    self.lines.append('\} ')
+                    return
+            elif ast.type == TreeNode.Type.TOKEN:
+                if ast.token.type == Token.Type.KEY and ast.token.terminalType == Terminal.word:
+                    self.lines.append('\\textbf{' + ast.token.str + '} ')
+                elif ast.token.type == Token.Type.TERMINAL and ast.token.terminalType == Terminal.word:
+                    self.lines.append(f' {ast.token.str} ')
+                elif ast.token.type == Token.Type.TERMINAL and ast.token.terminalType == Terminal.other:
+                    self.lines.append(f' ${ast.token.str}$ ')
+            for child in ast.childs:
+                self.dfs(child)

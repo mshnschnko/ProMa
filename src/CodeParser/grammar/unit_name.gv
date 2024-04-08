@@ -1,0 +1,8 @@
+digraph UNIT_NAME{
+    start [label=UNIT_NAME shape=plaintext]
+    statement [label=STATEMENT shape=box]
+    end [label="" shape=point]
+
+    start -> statement
+    statement -> end
+}

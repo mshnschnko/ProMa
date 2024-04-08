@@ -14,5 +14,6 @@ if __name__ == '__main__':
 
     lc = LatexCreator(args.destFile, args.preambleFile)
     lc.create_begin()
-    lc.parse_ast(ast)
+    # lc.parse_ast(ast)
+    lc.dfs(ast)
     lc.create_end()

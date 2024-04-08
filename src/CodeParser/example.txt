@@ -1,1 +1,5 @@
-define(a,array(@@{[1..n]}, struct(k:integer,l:@@{\in})))
+func(GCD, (a, b),
+    define(a,array(@@{[1..n]}, struct(k:integer, s:struct(l:integer), s:integer))),
+    assign(b,a),
+    return res
+)

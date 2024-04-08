@@ -8,7 +8,7 @@ class TreeNode:
         NONTERMINAL = 1
 
 
-    def __init__(self, type):
+    def __init__(self, type: Type):
         self.type = type
         self.attribute = None
         self.nonterminalType = None
