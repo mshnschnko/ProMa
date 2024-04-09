@@ -7,7 +7,6 @@ digraph ALG {
     comma_1 [label="," shape=oval]
     comma_2 [label="," shape=oval]
     comma_3 [label="," shape=oval]
-    name [label=NAME shape=box]
     input [label=INPUT shape=box]
     code_block [label=CODE_BLOCK shape=box]
     output [label=OUTPUT shape=box]
