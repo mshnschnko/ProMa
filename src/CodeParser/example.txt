@@ -1,7 +1,2 @@
-for(@@{a>5},
-    assign(a, 5),
-    for(@@{b\geq7},
-        assign(b,6))
-    end for,
-    define(c, array(@@{[1..n]}, integer)))
-end for
+for(@@{a \in \NN}, if(@@{a>5}, (assign(a, 6)), (assign(b, 8), define(c,integer))) end if,
+assign(l, @@{\Sigma})) end for

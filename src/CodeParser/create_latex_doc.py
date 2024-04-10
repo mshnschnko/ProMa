@@ -136,6 +136,29 @@ class LatexCreator:
     def dfs(self, ast: TreeNode) -> None:
         if ast:
             if ast.type == TreeNode.Type.NONTERMINAL:
+                if ast.nonterminalType == Nonterminal.BRANCHING:
+                    for child in ast.childs[:3]:
+                        self.dfs(child)
+                    self.tabs += 1
+                    self.lines.append('\\textbf{then} \\\\\n')
+                    br_count = 0
+                    i = 3
+                    # child = ast.childs[i]
+                    while br_count < 2 and i < len(ast.childs):
+                        child = ast.childs[i]
+                        if child.type == TreeNode.Type.TOKEN and child.token.type == Token.Type.KEY \
+                                and child.token.terminalType == Terminal.char_sequence and child.token.str == '(':
+                            br_count += 1
+                        self.dfs(child)
+                        i += 1
+                    if ast.type == TreeNode.Type.TOKEN and ast.childs[i].token.type == Token.Type.KEY \
+                        and ast.childs[i].token.terminalType == Terminal.word and ast.childs[i].token.str == ')':
+                        pass
+                    else:
+                        self.lines.append((self.tabs - 1) * '\\tab ' + '\\textbf{else} \\\\\n')
+                    for child in ast.childs[i:]:
+                        self.dfs(child)
+                    return
                 if ast.nonterminalType == Nonterminal.FOR:
                     for child in ast.childs[:3]:
                         self.dfs(child)
