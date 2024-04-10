@@ -8,7 +8,7 @@ class Terminal(Enum):
 
 
 tokenRegularExpressions = [
-    (Terminal.word, r'[\[\]a-zA-Z0-9_+*/\-=\.]+'),
+    (Terminal.word, r'[\[\]a-zA-Z0-9_+*/\-=\. ]+'),
     (Terminal.char_sequence, r"[\(\),:]"),
     (Terminal.other, r"(?:(@@\{))[ \t]*(.*?)[ \t]*(?(2)\})"),
 ]
@@ -22,6 +22,9 @@ keys = [
     ("func", Terminal.word),
     ("proc", Terminal.word),
     ("iter", Terminal.word),
+    ("end func", Terminal.word),
+    ("end proc", Terminal.word),
+    ("end iter", Terminal.word),
     ("assign", Terminal.word),
     ("next for", Terminal.word),
     ("exit for", Terminal.word),
@@ -34,8 +37,11 @@ keys = [
     ("array", Terminal.word),
     ("struct", Terminal.word),
     ("if", Terminal.word),
+    ("end if", Terminal.word),
     ("for", Terminal.word),
+    ("end for", Terminal.word),
     ("while", Terminal.word),
+    ("end while", Terminal.word),
     ("repeat", Terminal.word),
     (",", Terminal.char_sequence),
     ("(", Terminal.char_sequence),

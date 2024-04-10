@@ -2,8 +2,8 @@
     "syntax": {
         "type": "virt",
         "info": {
-            "supportInfo": "D:/spbstu_projects/ProMa/src/CodeParser/grammar/grammar.sgi",
-            "diagrams": "D:/spbstu_projects/ProMa/src/CodeParser/grammar"
+            "supportInfo": "grammar/grammar.sgi",
+            "diagrams": "grammar"
         }
     },
     "semantics": {

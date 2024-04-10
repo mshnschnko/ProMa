@@ -2,20 +2,22 @@ digraph FOR{
     start [label=FOR shape=plaintext]
     for [label=for shape=oval]
     statement [label=STATEMENT shape=box]
-    oper [label=OPERATOR shape=box]
+    operator [label=OPERATOR shape=box]
     open [label="(" shape=oval]
     comma_1 [label="," shape=oval]
     comma_2 [label="," shape=oval]
     close [label=")" shape=oval]
+    end_for [label="end for" shape=oval]
     end [label="" shape=point]
 
     start -> for
     for -> open
     open -> statement
     statement -> comma_1
-    comma_1 -> oper
-    oper -> comma_2
-    comma_2 -> oper
-    oper -> close
-    close -> end
+    comma_1 -> operator
+    operator -> comma_2
+    comma_2 -> operator
+    operator -> close
+    close -> end_for
+    end_for -> end
 }

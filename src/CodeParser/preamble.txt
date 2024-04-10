@@ -32,6 +32,8 @@
 \let\epsilon\varepsilon
 \let\phi\varphi
 
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
 

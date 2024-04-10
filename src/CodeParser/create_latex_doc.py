@@ -7,6 +7,7 @@ class LatexCreator:
         self.preamble_path = preamble_path
         self.dest_path = dest_path
         self.nodes = []
+        self.tabs = 0
 
     def create_begin(self):
         with open(self.preamble_path, 'r', encoding='utf8') as preamble_file:
@@ -14,7 +15,7 @@ class LatexCreator:
 
         with open(self.dest_path, 'w', encoding='utf8') as latex_file:
             latex_file.write(preamble)
-            latex_file.write('\n\\begin{document}\n')
+            latex_file.write('\n\\begin{document}\n\\noindent')
 
         self.lines = []
 
@@ -132,17 +133,17 @@ class LatexCreator:
                 # i += 1
 
 
-# TODO:
-# Создавать список детей перед циклом с рекурсивным вызовом
-# передавать этот список вместо поля класса, поле класса убрать
-
-    # def prepair_tree(self, ast: TreeNode) -> TreeNode:
-
-    # def process_item(self, node: TreeNode)
-
     def dfs(self, ast: TreeNode) -> None:
         if ast:
             if ast.type == TreeNode.Type.NONTERMINAL:
+                if ast.nonterminalType == Nonterminal.FOR:
+                    for child in ast.childs[:3]:
+                        self.dfs(child)
+                    self.tabs += 1
+                    self.lines.append('\\textbf{do} \\\\\n')
+                    for child in ast.childs[3:]:
+                        self.dfs(child)
+                    return
                 if ast.nonterminalType == Nonterminal.NAME:
                     self.dfs(ast.childs[0].childs[0])
                     self.lines.append(' $:$ ')
@@ -159,11 +160,12 @@ class LatexCreator:
                     self.dfs(ast.childs[2].childs[0])
                     self.lines.append(' $:=$ ')
                     self.dfs(ast.childs[4].childs[0])
+                    self.lines.append('\\\\\n')
                     return
                 if ast.nonterminalType == Nonterminal.DEFINITION:
-                    self.dfs(ast.childs[2].childs[0])
-                    self.lines.append(' $:$ ')
-                    self.dfs(ast.childs[4].childs[0])
+                    for child in ast.childs[1:]:
+                        self.dfs(child)
+                    self.lines.append('\\\\\n')
                     return
                 if ast.nonterminalType == Nonterminal.TYPE_ARRAY:
                     self.dfs(ast.childs[0])
@@ -180,9 +182,18 @@ class LatexCreator:
                     return
             elif ast.type == TreeNode.Type.TOKEN:
                 if ast.token.type == Token.Type.KEY and ast.token.terminalType == Terminal.word:
-                    self.lines.append('\\textbf{' + ast.token.str + '} ')
+                    if ast.token.str in ['integer', 'string', 'char', 'array', 'struct']:
+                        self.lines.append('\\textbf{' + ast.token.str + '} ')
+                    elif 'end ' in ast.token.str:
+                        self.tabs -= 1
+                        s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
+                        self.lines.append(self.tabs * s + '\\textbf{' + ast.token.str + '}\\\\\n')
+                    else:
+                        s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
+                        self.lines.append(self.tabs * s + '\\textbf{' + ast.token.str + '} ')
                 elif ast.token.type == Token.Type.TERMINAL and ast.token.terminalType == Terminal.word:
-                    self.lines.append(f' {ast.token.str} ')
+                    s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
+                    self.lines.append(self.tabs * s + f'{ast.token.str}')
                 elif ast.token.type == Token.Type.TERMINAL and ast.token.terminalType == Terminal.other:
                     self.lines.append(f' ${ast.token.str}$ ')
             for child in ast.childs:

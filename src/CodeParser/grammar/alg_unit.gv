@@ -10,6 +10,9 @@ digraph ALG_UNIT {
     comma_2 [label="," shape=oval]
     input [label=INPUT shape=box]
     operator [label=OPERATOR shape=box]
+    end_func [label="end func" shape=oval]
+    end_proc [label="end proc" shape=oval]
+    end_iter [label="end iter" shape=oval]
     end [label="" shape=point]
 
     start -> func
@@ -25,5 +28,10 @@ digraph ALG_UNIT {
     comma_2 -> operator
     operator -> comma_2
     operator -> br_close
-    br_close -> end
+    br_close -> end_func
+    br_close -> end_proc
+    br_close -> end_iter
+    end_func -> end
+    end_proc -> end
+    end_iter -> end
 }

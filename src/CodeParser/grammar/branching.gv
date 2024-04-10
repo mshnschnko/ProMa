@@ -15,6 +15,7 @@ digraph BRANCHING{
     close [label=")" shape=oval]
     close_1 [label=")" shape=oval]
     close_2 [label=")" shape=oval]
+    end_if [label="end if" shape=oval]
     end [label="" shape=point]
 
     start -> if
@@ -36,5 +37,6 @@ digraph BRANCHING{
     comma_else_2 -> oper_else
     oper_else -> close_2
     close_2 -> close
-    close -> end
+    close -> end_if
+    end_if -> end
 }

@@ -6,6 +6,7 @@ digraph WHILE{
     open [label="(" shape=oval]
     comma [label="," shape=oval]
     close [label=")" shape=oval]
+    end_while [label="end while" shape=oval]
     end [label="" shape=point]
 
     start -> while
@@ -15,5 +16,6 @@ digraph WHILE{
     comma -> oper
     oper -> oper
     oper -> close
-    close -> end
+    close -> end_while
+    end_while -> end
 }

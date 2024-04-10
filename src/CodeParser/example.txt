@@ -1,5 +1,7 @@
-func(GCD, (a, b),
-    define(a,array(@@{[1..n]}, struct(k:integer, s:struct(l:integer), s:integer))),
-    assign(b,a),
-    return res
-)
+for(@@{a>5},
+    assign(a, 5),
+    for(@@{b\geq7},
+        assign(b,6))
+    end for,
+    define(c, array(@@{[1..n]}, integer)))
+end for

@@ -32,6 +32,8 @@
 \let\epsilon\varepsilon
 \let\phi\varphi
 
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
 
@@ -73,5 +75,12 @@
   }%
 }
 \begin{document}
-\textbf{func}  GCD  ( a ,  b )  a  $:$ \textbf{array}  $[1..n]$  \textbf{of} \textbf{struct}  \{ k  $:$ \textbf{integer}  s  $:$ \textbf{struct}  \{ l  $:$ \textbf{integer} \}  s  $:$ \textbf{integer} \}  b  $:=$  a \textbf{return}  res 
+\noindent\textbf{for}  $a>5$ \textbf{do} \\
+\tab a $:=$ 5\\
+\tab \textbf{for}  $b\geq7$ \textbf{do} \\
+\tab \tab b $:=$ 6\\
+\tab \textbf{end for}\\
+\tab c $:$ \textbf{array}  $[1..n]$  \textbf{of} \textbf{integer} \\
+\textbf{end for}\\
+
 \end{document}
