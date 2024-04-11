@@ -79,6 +79,7 @@ digraph S {
     alg -> algorithm
     algorithm -> alg_br_open
     alg_br_open -> alg_name
+    alg_br_open -> input
     alg_name -> statement
     statement -> alg_comma_1
     alg_comma_1 -> input
