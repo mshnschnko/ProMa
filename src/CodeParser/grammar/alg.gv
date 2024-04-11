@@ -19,6 +19,7 @@ digraph ALG {
     start -> algorithm
     algorithm -> br_open
     br_open -> name
+    br_open -> input
     name -> comma_1
     comma_1 -> input
     input -> comma_2
