@@ -1,2 +1,2 @@
-for(@@{a \in \NN}, if(@@{a>5}, (assign(a, 6)), (assign(b, 8), define(c,integer))) end if,
+for(@@{a \in \NN},if(@@{a>5}, (assign(a, 6)), (assign(b, 8), define(c,integer))) end if,
 assign(l, @@{\Sigma})) end for

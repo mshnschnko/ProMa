@@ -2,7 +2,6 @@ digraph BRANCHING{
     start [label=BRANCHING shape=plaintext]
     if [label=if shape=oval]
     statement [label=STATEMENT shape=box]
-    call [label=CALL shape=box]
     oper_true [label=OPERATOR shape=box]
     oper_else [label=OPERATOR shape=box]
     open [label="(" shape=oval]
@@ -21,9 +20,7 @@ digraph BRANCHING{
     start -> if
     if -> open
     open -> statement
-    open -> call
     statement -> comma_true_1
-    call -> comma_true_1
     comma_true_1 -> open_1
     open_1 -> oper_true
     oper_true -> comma_true_2

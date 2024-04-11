@@ -165,8 +165,8 @@ class LatexCreator:
                             br_count += 1
                         self.dfs(child)
                         i += 1
-                    if ast.type == TreeNode.Type.TOKEN and ast.childs[i].token.type == Token.Type.KEY \
-                        and ast.childs[i].token.terminalType == Terminal.word and ast.childs[i].token.str == ')':
+                    if ast.childs[i].type == TreeNode.Type.TOKEN and ast.childs[i].token.type == Token.Type.KEY \
+                        and ast.childs[i].token.terminalType == Terminal.char_sequence and ast.childs[i].token.str == ')':
                         pass
                     else:
                         self.lines.append((self.tabs - 1) * '\\tab ' + '\\textbf{else} \\\\\n')
@@ -231,8 +231,11 @@ class LatexCreator:
                         self.lines.append('Алгоритм ')
                     elif 'end ' in ast.token.str:
                         self.tabs -= 1
-                        s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
-                        self.lines.append(self.tabs * s + '\\textbf{' + ast.token.str + '}\\\\\n')
+                        # s = '\\tab ' if len(self.lines) > 0 else ''
+                        s = '\\tab ' * self.tabs
+                        if len(self.lines) > 0 and not '\n' in self.lines[-1]:
+                            s += '\\\\\n'
+                        self.lines.append(s + '\\textbf{' + ast.token.str + '}\\\\\n')
                     else:
                         s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
                         self.lines.append(self.tabs * s + '\\textbf{' + ast.token.str + '} ')
