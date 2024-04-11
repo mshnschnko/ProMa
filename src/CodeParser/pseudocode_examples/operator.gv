@@ -1,0 +1,87 @@
+digraph OPERATOR {
+    start [label=OPERATOR shape=plaintext]
+    flow_structure [label=FLOW_STRUCTURE shape=box]
+    alg_unit_return [label=ALG_UNIT_RETURN shape=box]
+    assignment [label=ASSIGNMENT shape=box]
+    definition [label=DEFINITION shape=box]
+    statement [label=STATEMENT shape=box]
+    transition [label=TRANSITION shape=box]
+
+    comment [label=COMMENT shape=box]
+    comment_open [label="(" shape=oval]
+    comment_close [label=")" shape=oval]
+    comment_statement [label=STATEMENT shape=box]
+
+    define [label=define shape=oval]
+    define_open [label="(" shape=oval]
+    define_var_name [label=NAME shape=box]
+    define_name_statement [label=STATEMENT shape=box]
+    define_comma [label="," shape=oval]
+    define_type [label=TYPE shape=box]
+    define_close [label=")" shape=oval]
+
+    assign [label=assign shape=oval]
+    assign_open [label="(" shape=oval]
+    assign_statement_left [label=STATEMENT shape=box]
+    assign_comma [label="," shape=oval]
+    assign_statement_right [label=STATEMENT shape=box]
+    assign_close [label=")" shape=oval]
+
+    return [label=RETURN shape=box]
+    return_command [label="return" shape=oval]
+    return_command_statement [label=STATEMENT shape=box]
+    return_command_br_open [label="(" shape=oval]
+    return_command_br_close [label=")" shape=oval]
+
+    yield [label=YIELD shape=box]
+    yield_command [label="yield" shape=oval]
+
+    end [label="" shape=point]
+
+    start -> flow_structure
+    start -> assignment
+    start -> definition
+    start -> statement
+    start -> transition
+    start -> comment
+    start -> alg_unit_return
+
+    alg_unit_return -> return
+    alg_unit_return -> yield
+
+    return -> return_command
+    return_command -> return_command_br_open
+    return_command_br_open -> return_command_statement
+    return_command_statement -> return_command_br_close
+    return_command_br_close -> end
+    
+    yield -> yield_command
+    yield_command -> return_command_br_open
+
+    flow_structure -> end
+
+    assignment -> assign
+    assign -> assign_open
+    assign_open -> assign_statement_left
+    assign_statement_left -> assign_comma
+    assign_comma -> assign_statement_right
+    assign_statement_right -> assign_close
+    assign_close -> end
+
+    definition -> define
+    define -> define_open
+    define_open -> define_var_name
+    define_var_name -> define_name_statement
+    define_name_statement -> define_comma
+    define_comma -> define_type
+    define_type -> define_close
+    define_close -> end
+
+    statement -> end
+    transition -> end
+
+    comment -> comment_open
+    comment_open -> comment_statement
+    comment_statement -> comment_close
+    comment_close -> end
+}

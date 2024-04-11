@@ -235,7 +235,7 @@ class LatexCreator:
                         # s = '\\tab ' if len(self.lines) > 0 else ''
                         s = '\\tab ' * self.tabs
                         if len(self.lines) > 0 and not '\n' in self.lines[-1]:
-                            s += '\\\\\n'
+                            s = '\\\\\n' + s
                         self.lines.append(s + '\\textbf{' + ast.token.str + '}\\\\\n')
                     else:
                         s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
