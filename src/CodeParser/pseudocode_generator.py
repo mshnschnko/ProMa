@@ -15,5 +15,8 @@ if __name__ == '__main__':
     lc = LatexCreator(args.destFile, args.preambleFile)
     lc.create_begin()
     # lc.parse_ast(ast)
-    lc.dfs(ast)
+    try:
+        lc.dfs(ast)
+    except:
+        print(*lc.lines, sep='\n')
     lc.create_end()

@@ -173,7 +173,7 @@ class LatexCreator:
                     for child in ast.childs[i:]:
                         self.dfs(child)
                     return
-                if ast.nonterminalType == Nonterminal.FOR:
+                if ast.nonterminalType == Nonterminal.FOR or ast.nonterminalType == Nonterminal.WHILE:
                     for child in ast.childs[:3]:
                         self.dfs(child)
                     self.tabs += 1
@@ -181,6 +181,8 @@ class LatexCreator:
                     for child in ast.childs[3:]:
                         self.dfs(child)
                     return
+                # if ast.nonterminalType == Nonterminal.WHILE:
+
                 if ast.nonterminalType == Nonterminal.NAME:
                     self.dfs(ast.childs[0].childs[0])
                     self.lines.append(' $:$ ')
