@@ -77,14 +77,24 @@
 }
 \begin{document}
 \noindent
-\textbf{for}  $a \in \NN$ \textbf{do} \\
-\tab \textbf{if}  $a>5$ \textbf{then} \\
-\tab \tab a $:=$ 6\\
-\tab \textbf{else} \\
-\tab \tab b $:=$ 8\\
-\tab \tab c $:$ \textbf{integer} \\
+ $\alpha$  $:$ \textbf{array}  $[1..s]$  \textbf{of}  ${a, b}$ \\
+ $\beta$  $:$ \textbf{array}  $[1..t]$  \textbf{of}  ${a, b}$ \\
+\textbf{if}  $\alpha[1] \neq \beta[1]$ \textbf{then} \\
+\tab \textbf{return} false\\
+\textbf{end if}\\
+ $N_{\alpha}$  $:=$ 0\\
+\textbf{for} i from 2 to s \textbf{do} \\
+\tab \textbf{if}  $\alpha[i] \neq \alpha[i-1]$ \textbf{then} \\
+ $N_{\alpha}$  $:=$  $N_{\alpha} + 1$ \\
 \tab \textbf{end if}\\
-\tab l $:=$  $\Sigma$ \\
 \textbf{end for}\\
-
+ $N_{\beta}$  $:=$ 0\\
+\textbf{for} i from 2 to t \textbf{do} \\
+\tab \textbf{if}  $\beta[i] \neq \beta[i-1]$ \textbf{then} \\
+ $N_{\beta}$  $:=$  $N_{\beta} + 1$ \\
+\tab \textbf{end if}\\
+\textbf{end for}\\
+\textbf{if}  $N_{\alpha} == N_{\beta}$ \textbf{then} \\
+\tab \textbf{return} true\textbf{else} \\
+\tab \textbf{return} false
 \end{document}

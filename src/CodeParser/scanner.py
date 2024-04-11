@@ -21,7 +21,7 @@ def __GetCurrentToken(code, pos):
         token.terminalType = terminal
         if token.terminalType == terminal.other:
             token.str = result.group(2)
-            return token, pos + len(token.str) + 4
+            return token, pos + len(token.str) + 2
         else:
             token.str = result.group(0)
         return token, pos + len(token.str)
