@@ -1,10 +1,14 @@
 digraph YIELD {
     start [label=YIELD shape=plaintext]
     yield [label="yield" shape=oval]
+    br_open [label="(" shape=oval]
+    br_close [label=")" shape=oval]
     statement [label=STATEMENT shape=box]
     end [label="" shape=point]
 
     start -> yield
-    yield -> statement
-    statement -> end
+    yield -> br_open
+    br_open -> statement
+    statement -> br_close
+    br_close -> end
 }
