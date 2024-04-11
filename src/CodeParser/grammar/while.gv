@@ -14,7 +14,7 @@ digraph WHILE{
     open -> statement
     statement -> comma
     comma -> oper
-    oper -> oper
+    oper -> comma
     oper -> close
     close -> end_while
     end_while -> end
