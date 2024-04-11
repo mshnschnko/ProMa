@@ -4,7 +4,6 @@ digraph TYPE_STRUCT{
     open [label="(" shape=oval]
     name [label=NAME shape=box]
     type [label=TYPE shape=box]
-    statement [label=STATEMENT shape=box]
     close [label=")" shape=oval]
     comma [label="," shape=oval]
     colon [label=":" shape=oval]

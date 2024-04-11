@@ -7,6 +7,25 @@ digraph OPERATOR {
     statement [label=STATEMENT shape=box]
     transition [label=TRANSITION shape=box]
 
+    branching [label=BRANCHING shape=box]
+    cycle [label=CYCLE shape=box]
+
+    if [label=if shape=oval]
+    if_statement [label=STATEMENT shape=box]
+    if_oper_true [label=OPERATOR shape=box]
+    if_oper_else [label=OPERATOR shape=box]
+    if_open [label="(" shape=oval]
+    if_open_1 [label="(" shape=oval]
+    if_open_2 [label="(" shape=oval]
+    if_comma_true_1 [label="," shape=oval]
+    if_comma_true_2 [label="," shape=oval]
+    if_comma_else_1 [label="," shape=oval]
+    if_comma_else_2 [label="," shape=oval]
+    if_close [label=")" shape=oval]
+    if_close_1 [label=")" shape=oval]
+    if_close_2 [label=")" shape=oval]
+    end_if [label="end if" shape=oval]
+
     next_for [label="next for" shape=oval]
     exit_for [label="exit for" shape=oval]
 
@@ -81,7 +100,32 @@ digraph OPERATOR {
     yield -> yield_command
     yield_command -> return_command_br_open
 
-    flow_structure -> end
+    flow_structure -> branching
+    flow_structure -> cycle
+
+    branching -> if
+    if -> if_open
+    if_open -> if_statement
+    if_statement -> if_comma_true_1
+    if_comma_true_1 -> if_open_1
+    if_open_1 -> if_oper_true
+    if_oper_true -> if_comma_true_2
+    if_comma_true_2 -> if_oper_true
+    if_oper_true -> if_close_1
+    if_close_1 -> if_comma_else_1
+    if_comma_else_1 -> if_open_2
+    if_open_2 -> if_oper_else
+    if_open_2 -> if_close_2
+    if_oper_else -> if_comma_else_2
+    if_comma_else_2 -> if_oper_else
+    if_oper_else -> if_close_2
+    if_close_2 -> if_close
+    if_close -> end_if
+    end_if -> end
+
+    cycle -> end
+
+
 
     assignment -> assign
     assign -> assign_open
