@@ -169,7 +169,8 @@ class LatexCreator:
                         and ast.childs[i].token.terminalType == Terminal.char_sequence and ast.childs[i].token.str == ')':
                         pass
                     else:
-                        self.lines.append((self.tabs - 1) * '\\tab ' + '\\textbf{else} \\\\\n')
+                        new_line = s = '\\\\\n ' if len(self.lines) > 0 and not '\n' in self.lines[-1] else ''
+                        self.lines.append(new_line + (self.tabs - 1) * '\\tab ' + '\\textbf{else} \\\\\n')
                     for child in ast.childs[i:]:
                         self.dfs(child)
                     return
@@ -243,6 +244,7 @@ class LatexCreator:
                     s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
                     self.lines.append(self.tabs * s + f'{ast.token.str}')
                 elif ast.token.type == Token.Type.TERMINAL and ast.token.terminalType == Terminal.other:
-                    self.lines.append(f' ${ast.token.str}$ ')
+                    s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''
+                    self.lines.append(self.tabs * s + f' ${ast.token.str}$ ')
             for child in ast.childs:
                 self.dfs(child)

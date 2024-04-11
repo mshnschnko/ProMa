@@ -11,7 +11,13 @@ digraph S {
     alg_comma_1 [label="," shape=oval]
     alg_comma_2 [label="," shape=oval]
     alg_comma_3 [label="," shape=oval]
+    alg_comma_4 [label="," shape=oval]
     input [label=INPUT shape=box]
+    alg_output [label=ALG_OUTPUT shape=box]
+    out_statement [label=STATEMENT shape=box]
+
+    cb_open [label="(" shape=oval]
+    cb_close [label=")" shape=oval]
     code_block [label=CODE_BLOCK shape=box]
     output [label=OUTPUT shape=box]
 
@@ -44,9 +50,18 @@ digraph S {
     alg_unit_br_open [label="(" shape=oval]
     alg_unit_br_close [label=")" shape=oval]
     alg_unit_name [label=NAME shape=box]
+    alg_unit_name_statement [label=STATEMENT shape=box]
     alg_unit_comma_1 [label="," shape=oval]
     alg_unit_comma_2 [label="," shape=oval]
     alg_unit_input [label=INPUT shape=box]
+
+    input_br_open_2 [label="(" shape=oval]
+    input_br_close_2 [label=")" shape=oval]
+    param_list_2 [label=PARAM_LIST shape=box]
+
+    param_list_statement_2 [label=STATEMENT shape=box]
+    param_list_comma_2 [label="," shape=oval]
+
     alg_unit_operator [label=OPERATOR shape=box]
 
     operator [label=OPERATOR shape=box]
@@ -78,9 +93,15 @@ digraph S {
     param_list_statement -> input_br_close
     param_list -> input_br_close
 
-    alg_comma_2 -> code_block
+    alg_comma_2 -> alg_output
+    alg_output -> out_statement
+    out_statement -> alg_comma_3
 
+    alg_comma_3 -> cb_open
+    cb_open -> code_block
     code_block -> alg_unit
+    cb_close -> alg_comma_4
+
     code_block -> operator
     code_block_comma -> alg_unit
     code_block_comma -> operator
@@ -93,18 +114,29 @@ digraph S {
     proc -> alg_unit_br_open
     iter -> alg_unit_br_open
     alg_unit_br_open -> alg_unit_name
-    alg_unit_name -> alg_unit_comma_1
+    alg_unit_name -> alg_unit_name_statement
+    alg_unit_name_statement -> alg_unit_comma_1
     alg_unit_comma_1 -> alg_unit_input
-    alg_unit_input -> alg_unit_comma_2
+    alg_unit_input -> input_br_open_2
+    
+    input_br_open_2 -> param_list_2
+    param_list_2 -> param_list_statement_2
+    param_list_statement_2 -> param_list_comma_2
+    param_list_comma_2 -> param_list_statement_2
+    param_list_statement_2 -> input_br_close_2
+    param_list_2 -> input_br_close_2
+
+    input_br_close_2 -> alg_unit_comma_2
     alg_unit_comma_2 -> alg_unit_operator
     alg_unit_operator -> alg_unit_comma_2
     alg_unit_operator -> alg_unit_br_close
     alg_unit_br_close -> code_block_comma
-    alg_unit_br_close -> alg_comma_3
+    alg_unit_br_close -> cb_close
 
-    operator -> alg_comma_3
+    operator -> cb_close
+    cb_close -> alg_comma_4
 
-    alg_comma_3 -> output
+    alg_comma_4 -> output
 
     output -> return_type
     return_type -> return
