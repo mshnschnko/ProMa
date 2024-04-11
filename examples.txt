@@ -16,3 +16,37 @@ for(i from 2 to t ,
 	())end if
 )end for,
 if(@N_{\alpha} == N_{\beta}@, (return(true)), (return(false)))
+
+
+define(B, array(@[1..n]@, @0..1@)),
+for(@i \text{from} 1 to \text{to} 2^n - 1@, 
+	assign(p, @n + 1 - Q(i)@),
+	assign(@B[p]@, @1 - B[p]@),
+	yield B
+)end for
+func(Q, (@\text{i - номер подмножества}@),
+    assign(q, 1),
+	assign(j, i),
+	while(j mod 2 = 0,
+	assign(j, j div 2), 
+	assign(q, q + 1)
+	) end while,
+	return(q)	
+)
+
+
+for(i from 1 to n,
+	for(j from 1 to n,
+		if(@R[j, i] = 1@, (
+			assign(@H[i,j]@, 1),
+			for(k from 1 to n,
+				if(@R[i,k] = 1 \texr{ \& } R[k, j] = 1@, (
+					assign(@H[i,j]@, 0),
+					exit for k
+				),
+				())end if
+			)end for
+		),
+		())end if
+	)end for
+)end for
