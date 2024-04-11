@@ -1,30 +1,43 @@
-define(@\alpha@, array(@[1..s]@, @{a, b}@)),
-define(@\beta@, array( @[1..t]@, @{a, b}@)),
-if(@\alpha[1] \neq \beta[1]@,
- 	(return(false)), 
-())end if,
-assign(@N_{\alpha}@, 0),
-for(i from 2 to s , 
-	if(@\alpha[i] \neq \alpha[i-1]@,
- 		(assign(@N_{\alpha}@, @N_{\alpha} + 1@)), 
-	() )end if
-)end for,
-assign(@N_{\beta}@, 0),
-for(i from 2 to t , 
-	if(@\beta[i] \neq \beta[i-1]@,
- 		(assign(@N_{\beta}@, @N_{\beta} + 1@)), 
-	())end if
-)end for,
-if(@N_{\alpha} == N_{\beta}@, (return(true)), (return(false)))
+/////////////////////////////////////////////////////////////////////////////////////////////////
+algorithm( (@\text{Слова } \alpha : \text{array } [1..s] \text{of } {a, b},  \beta : \text{ array } [1..t] \text{ of } {a, b}@), @\text{Значение выражения } \alpha = \beta \text{ в полугруппе } \mathcal{P}@, (
+	define(@\alpha@, array(@[1..s]@, @{a, b}@)),
+	define(@\beta@, array( @[1..t]@, @{a, b}@)),
+	if(@\alpha[1] \neq \beta[1]@,(
+		comment(первые буквы не совпадают),
+		return(false)), 
+	())end if,
+	assign(@N_{\alpha}@, 0),
+	comment(счетчик изменений буквы в $\alpha$),
+	for(i from 2 to s , 
+		if(@\alpha[i] \neq \alpha[i-1]@,
+			(assign(@N_{\alpha}@, @N_{\alpha} + 1@),
+			comment(буква изменилась)), 
+		() )end if
+	)end for,
+	assign(@N_{\beta}@, 0),
+	comment(счетчик изменений буквы в $\beta$),
+	for(i from 2 to t , 
+		if(@\beta[i] \neq \beta[i-1]@,
+			(assign(@N_{\beta}@, @N_{\beta} + 1@), 
+			comment(буква изменилась)), 
+		())end if
+	)end for,
+	if(@N_{\alpha} = N_{\beta}@, (return(true)), (return(false)))end if
+))
 
 
-define(B, array(@[1..n]@, @0..1@)),
-for(@i \text{from} 1 to \text{to} 2^n - 1@, 
-	assign(p, @n + 1 - Q(i)@),
-	assign(@B[p]@, @1 - B[p]@),
-	yield B
-)end for
-func(Q, (@\text{i - номер подмножества}@),
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+algorithm(Построения кода Грея, (@\text{число} n > 0 - \text{мощность множества}@), последовательность кодов подмножеств B, (
+	define(B, array(@[1..n]@, @0..1@)),
+	for(@i \text{from} 1 to \text{to} 2^n - 1@, 
+		assign(p, @n + 1 - Q(i)@),
+		assign(@B[p]@, @1 - B[p]@),
+		yield B
+	)end for
+)),
+
+func(Q, (i - номер подмножества),
     assign(q, 1),
 	assign(j, i),
 	while(j mod 2 = 0,
@@ -35,18 +48,113 @@ func(Q, (@\text{i - номер подмножества}@),
 )
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+algorithm( Диаграммы Хассе,(@\text{Отношение R: array [1..n, 1..n] of 0..1}@), @\text{Диаграмма Хассе H : array [1..n, 1..n] of 0..1}@, (
 for(i from 1 to n,
 	for(j from 1 to n,
 		if(@R[j, i] = 1@, (
 			assign(@H[i,j]@, 1),
+			comment(возможно это соседи), 
 			for(k from 1 to n,
 				if(@R[i,k] = 1 \texr{ \& } R[k, j] = 1@, (
 					assign(@H[i,j]@, 0),
+					comment(найден промежуточный элемент), 
 					exit for k
 				),
 				())end if
 			)end for
-		),
-		())end if
+		),(
+			assign(@H[i,j]@, 0),
+			comment(диаграмма Хассе - подмножество)
+		))end if
 	)end for
 )end for
+))
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+algorithm( Итератор разности множеств,(множества X и Y), Разность множеств , (
+for(@x \in X@, 
+	for(@y \in Y@,
+		if(@x = y@, (next for x), ())end if
+	)end for,
+	comment(следующий x),
+	@S(x)@,
+	comment(тело цикла)
+)end for
+))
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+algorithm( (n число мужчин и женщин, матрицы предпочтений M, W), @\text{n сформированных пар в списках B, G}@, (
+	assign(k, 0),
+	comment(количество сформированных пар),
+	for(i from 1 to n , 
+		assign(@B[i]@, 0), 
+		assign(@G[i]@, 0), 
+		assign(@P[i]@, 0) 
+	)end for,
+	while(@k < n@, 
+	for(m from 1 to n,
+		if(@B[m] = 0@, (
+			comment(первый свободный жених m делает предложение невесте w),
+			assign(@P[m]@, @P[m] + 1@),
+			assign(@w@, @M[m, P[m]]@),
+			exit for m,
+			comment(цикл не нужно продолжать)
+		), ())end if
+	)end for,
+	if(@G[w]= 0@,(
+		comment(первое предложение всегда принимается - помолвка),
+		assign(k, @k + 1@),
+		assign(@G[w]@, m),
+		assign(@B[m]@, @w@),
+		assign(@R[w]@, @W[w, m]@),
+		next while,
+		comment(следующий жених)
+		),
+	())end if,
+	if(@W[w, m] > R[w]@, (
+		comment(новый жених лучше - прежнему отставка),
+		assign(@B[G[w]]@, 0),
+		assign(@B[m]@, @w@),
+		assign(@R[w]@, @W[w, m]@),
+		assign(@G[w]@, @m@)
+	), ())end if
+	)end while
+))
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+algorithm(Вычисление чисел Стирлинга, (неотрицательные целые числа m и n), @\text{число Стирлинга }S(m, n)@, (
+	comment(можем сразу вернуть известные значения),
+	if(@m = 1@, (return(1)),())end if,
+	if(@n = 0@, (return(0)),())end if,
+	if(@n > m@, (return(0)),())end if,
+	if(@n = 1@, (return(1)),())end if,
+	assign(d, @min(n, m - n + 1)@),
+	comment(длина рабочего массива),
+	define(D, array(@[1..d]@, integer)),
+	comment(рабочий массив),
+	assign(s, @max(n, m-n+1)@),
+	comment(количество повторений),
+	for(i from 1 to d , assign(@D[i]@, 1))end for,
+	comment(инициализация),
+	for(i from 2 to s , 
+		for(j from 2 to d , 
+			if(@d = n@, (
+				assign(@D[j]@, @D[j - 1] + j * D[j]@)
+			),(
+				assign(@D[j]@, @D[j] + i * D[j-1]@)
+			))end if
+		)end for
+	)end for,
+	return(res),
+	comment(число Стирлинга)
+	)),
+return(@D[d]@)
