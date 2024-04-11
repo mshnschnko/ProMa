@@ -221,7 +221,7 @@ class LatexCreator:
                     self.lines.append('\} ')
                     return
                 if ast.nonterminalType == Nonterminal.COMMENT:
-                    self.lines[-1] = self.lines[-1].replace('\n', ' ')
+                    self.lines[-1] = self.lines[-1].replace('\\\\\n', ' ')
                     self.lines.append('{\color{gray}// ' + ast.childs[2].childs[0].token.str + '}\\\\\n')
                     return
             elif ast.type == TreeNode.Type.TOKEN:

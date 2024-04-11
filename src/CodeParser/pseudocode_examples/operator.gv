@@ -1,11 +1,14 @@
 digraph OPERATOR {
     start [label=OPERATOR shape=plaintext]
+    definition [label=DEFINITION shape=box]
     flow_structure [label=FLOW_STRUCTURE shape=box]
     alg_unit_return [label=ALG_UNIT_RETURN shape=box]
     assignment [label=ASSIGNMENT shape=box]
-    definition [label=DEFINITION shape=box]
     statement [label=STATEMENT shape=box]
     transition [label=TRANSITION shape=box]
+
+    next_for [label="next for" shape=oval]
+    exit_for [label="exit for" shape=oval]
 
     comment [label=COMMENT shape=box]
     comment_open [label="(" shape=oval]
@@ -19,6 +22,26 @@ digraph OPERATOR {
     define_comma [label="," shape=oval]
     define_type [label=TYPE shape=box]
     define_close [label=")" shape=oval]
+
+    type_array [label=TYPE_ARRAY shape=box]
+    type_struct [label=TYPE_STRUCT shape=box]
+    int [label=integer shape=oval]
+    str [label=string shape=oval]
+    char [label=char shape=oval]
+    type_statement [label=STATEMENT shape=box]
+
+    array [label=array shape=oval]
+    array_open [label="(" shape=oval]
+    array_statement [label=STATEMENT shape=box]
+    array_close [label=")" shape=oval]
+    array_comma [label="," shape=oval]
+
+    struct [label=struct shape=oval]
+    struct_open [label="(" shape=oval]
+    struct_name [label=NAME shape=box]
+    struct_close [label=")" shape=oval]
+    struct_comma [label="," shape=oval]
+    struct_colon [label=":" shape=oval]
 
     assign [label=assign shape=oval]
     assign_open [label="(" shape=oval]
@@ -38,9 +61,9 @@ digraph OPERATOR {
 
     end [label="" shape=point]
 
+    start -> definition
     start -> flow_structure
     start -> assignment
-    start -> definition
     start -> statement
     start -> transition
     start -> comment
@@ -74,11 +97,47 @@ digraph OPERATOR {
     define_var_name -> define_name_statement
     define_name_statement -> define_comma
     define_comma -> define_type
-    define_type -> define_close
+
+    define_type -> type_array
+    define_type -> type_struct
+    define_type -> int
+    define_type -> str
+    define_type -> char
+    define_type -> type_statement
+
+    type_array -> array
+    array -> array_open
+    array_open -> array_statement
+    array_statement -> array_comma
+    array_comma -> define_type
+    array_comma -> array_statement
+    define_type -> array_close
+    array_statement -> array_close
+    array_close -> define_close
+
+    type_struct -> struct
+    struct -> struct_open
+    struct_open -> struct_name
+    struct_name -> struct_colon
+    struct_colon -> define_type
+    define_type -> struct_comma
+    struct_comma -> struct_name
+    define_type -> struct_close
+    struct_close -> define_close
+
+    int -> define_close
+    str -> define_close
+    char -> define_close
+    type_statement -> define_close
+
     define_close -> end
 
     statement -> end
-    transition -> end
+
+    transition -> next_for
+    transition -> exit_for
+    next_for -> end
+    exit_for -> end
 
     comment -> comment_open
     comment_open -> comment_statement
