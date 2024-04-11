@@ -16,6 +16,7 @@
 \usepackage{graphicx}
 \usepackage{multirow, multicol}
 \usepackage{enumitem}
+\usepackage{xcolor}
 \setlist[enumerate]{label*=\arabic*.}
 \usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
 \usepackage{float}

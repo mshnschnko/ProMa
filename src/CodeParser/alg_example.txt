@@ -1,0 +1,1 @@
+algorithm(nameee, (a, b, c), @@{vihod}, (assign(a, 5), assign(b, 5), assign(c, 6)), return res)

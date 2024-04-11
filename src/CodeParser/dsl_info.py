@@ -63,6 +63,7 @@ class Nonterminal(Enum):
     RETURN = 'RETURN'
     CODE_BLOCK = 'CODE_BLOCK'
     OUTPUT = 'OUTPUT'
+    ALG_OUTPUT = 'ALG_OUTPUT'
     BRANCHING = 'BRANCHING'
     FOR = 'FOR'
     YIELD = 'YIELD'

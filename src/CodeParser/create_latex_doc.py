@@ -15,9 +15,9 @@ class LatexCreator:
 
         with open(self.dest_path, 'w', encoding='utf8') as latex_file:
             latex_file.write(preamble)
-            latex_file.write('\n\\begin{document}\n\\noindent')
+            latex_file.write('\n\\begin{document}\n\\noindent\n')
 
-        self.lines = []
+        self.lines: list[str] = []
 
     def create_end(self):
         with open(self.dest_path, 'a+', encoding='utf8') as latex_file:
@@ -136,6 +136,20 @@ class LatexCreator:
     def dfs(self, ast: TreeNode) -> None:
         if ast:
             if ast.type == TreeNode.Type.NONTERMINAL:
+                if ast.nonterminalType == Nonterminal.INPUT:
+                    self.lines.append('\\\\\n')
+                    self.lines.append('\\textbf{Вход:} ')
+                    for child in ast.childs[1:]:
+                        self.dfs(child)
+                    self.lines.append('\\\\\n')
+                    return
+                if ast.nonterminalType == Nonterminal.ALG_OUTPUT:
+                    self.lines.append('\\textbf{Выход:} ')
+                    for child in ast.childs:
+                        self.dfs(child)
+                    self.lines.append('\\\\\n')
+                    self.tabs += 1
+                    return
                 if ast.nonterminalType == Nonterminal.BRANCHING:
                     for child in ast.childs[:3]:
                         self.dfs(child)
@@ -203,10 +217,16 @@ class LatexCreator:
                         self.dfs(child)
                     self.lines.append('\} ')
                     return
+                if ast.nonterminalType == Nonterminal.COMMENT:
+                    self.lines[-1] = self.lines[-1].replace('\n', ' ')
+                    self.lines.append('{\color{gray}// ' + ast.childs[2].childs[0].token.str + '}\\\\\n')
+                    return
             elif ast.type == TreeNode.Type.TOKEN:
                 if ast.token.type == Token.Type.KEY and ast.token.terminalType == Terminal.word:
                     if ast.token.str in ['integer', 'string', 'char', 'array', 'struct']:
                         self.lines.append('\\textbf{' + ast.token.str + '} ')
+                    elif ast.token.str == 'algorithm':
+                        self.lines.append('Алгоритм ')
                     elif 'end ' in ast.token.str:
                         self.tabs -= 1
                         s = '\\tab ' if len(self.lines) > 0 and '\n' in self.lines[-1] else ''

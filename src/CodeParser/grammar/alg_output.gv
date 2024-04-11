@@ -1,0 +1,8 @@
+digraph ALG_OUTPUT{
+    start [label=ALG_OUTPUT shape=plaintext]
+    statement [label=STATEMENT shape=box]
+    end [label="" shape=point]
+
+    start -> statement
+    statement -> end
+}

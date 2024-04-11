@@ -1,12 +1,14 @@
 TERMINALS:
     word ::= 'word';
+    other = 'other';
     char_sequence = 'char_sequence'.
 
 KEYS:
     'assign'; 'next for'; 'exit for'; 'goto'; 'define'; 'comment';
     'integer'; 'string'; 'char'; 'array'; 'struct';
     'if'; 'for'; 'while'; 'repeat;
-    ','; '('; ')'.
+    ','; '('; ')'; ':'; 'end for'; 'end while';
+    'end if'; 'end func'; 'end iter'; 'end proc'.
 
 NONTERMINALS:
     DEFINITION;
@@ -21,6 +23,7 @@ NONTERMINALS:
     RETURN;
     CODE_BLOCK;
     OUTPUT;
+    ALG_OUTPUT;
     BRANCHING;
     FOR;
     YIELD;
