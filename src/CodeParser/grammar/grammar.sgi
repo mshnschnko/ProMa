@@ -6,7 +6,7 @@ TERMINALS:
 KEYS:
     'assign'; 'next for'; 'exit for'; 'goto'; 'define'; 'comment';
     'integer'; 'string'; 'char'; 'array'; 'struct';
-    'if'; 'for'; 'while'; 'repeat;
+    'if'; 'for'; 'while'; 'repeat; 'next for'; 'exit for';
     ','; '('; ')'; ':'; 'end for'; 'end while';
     'end if'; 'end func'; 'end iter'; 'end proc'.
 

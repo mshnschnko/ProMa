@@ -1,18 +1,10 @@
-define(@\alpha@, array(@[1..s]@, @{a, b}@)),
-define(@\beta@, array( @[1..t]@, @{a, b}@)),
-if(@\alpha[1] \neq \beta[1]@,
- 	(return(false)), 
-())end if,
-assign(@N_{\alpha}@, 0),
-for(i from 2 to s , 
-	if(@\alpha[i] \neq \alpha[i-1]@,
- 		(assign(@N_{\alpha}@, @N_{\alpha} + 1@)), 
-	() )end if
-)end for,
-assign(@N_{\beta}@, 0),
-for(i from 2 to t , 
-	if(@\beta[i] \neq \beta[i-1]@,
- 		(assign(@N_{\beta}@, @N_{\beta} + 1@)), 
-	())end if
-)end for,
-if(@N_{\alpha} == N_{\beta}@, (return(true)), (return(false)))
+algorithm( Итератор разности множеств,(множества X и Y), Разность множеств , (
+for(@x \in X@, 
+ for(@y \in Y@,
+  if(@x = y@, (next for x), ())end if
+ )end for,
+ comment(следующий x),
+ @S(x)@,
+ comment(тело цикла)
+)end for
+))

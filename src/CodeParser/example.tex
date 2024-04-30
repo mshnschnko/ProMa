@@ -77,24 +77,16 @@
 }
 \begin{document}
 \noindent
- $\alpha$  $:$ \textbf{array}  $[1..s]$  \textbf{of}  ${a, b}$ \\
- $\beta$  $:$ \textbf{array}  $[1..t]$  \textbf{of}  ${a, b}$ \\
-\textbf{if}  $\alpha[1] \neq \beta[1]$ \textbf{then} \\
-\tab \textbf{return} false\\
-\textbf{end if}\\
- $N_{\alpha}$  $:=$ 0\\
-\textbf{for} i from 2 to s \textbf{do} \\
-\tab \textbf{if}  $\alpha[i] \neq \alpha[i-1]$ \textbf{then} \\
- $N_{\alpha}$  $:=$  $N_{\alpha} + 1$ \\
-\tab \textbf{end if}\\
-\textbf{end for}\\
- $N_{\beta}$  $:=$ 0\\
-\textbf{for} i from 2 to t \textbf{do} \\
-\tab \textbf{if}  $\beta[i] \neq \beta[i-1]$ \textbf{then} \\
- $N_{\beta}$  $:=$  $N_{\beta} + 1$ \\
-\tab \textbf{end if}\\
-\textbf{end for}\\
-\textbf{if}  $N_{\alpha} == N_{\beta}$ \textbf{then} \\
-\tab \textbf{return} true\textbf{else} \\
-\tab \textbf{return} false
+Алгоритм Итератор разности множеств $:$ \\
+\textbf{Вход:}  (множества X и Y) \\
+\textbf{Выход:} Разность множеств \\
+\tab \textbf{for}  $x \in X$ \textbf{do} \\
+\tab \tab \textbf{for}  $y \in Y$ \textbf{do} \\
+\tab \tab \tab \textbf{if}  $x = y$ \textbf{then} \\
+\tab \tab \tab \tab next for x\\
+\tab \tab \tab \textbf{end if}\\
+\tab \tab \textbf{end for} {\color{gray}// следующий x}\\
+\tab \tab  $S(x)$ {\color{gray}// тело цикла}\\
+\tab \textbf{end for}\\
+
 \end{document}

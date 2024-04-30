@@ -90,7 +90,7 @@ def parse_code(json_file: str, code_file: str):
     else:
         debugInfoDir = None
 
-    with open(code_file, 'r') as codeFile:
+    with open(code_file, 'r', encoding='utf-8') as codeFile:
         code = codeFile.read()
 
     tokenList = Tokenize(code)
